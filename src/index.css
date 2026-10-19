@@ -1,0 +1,189 @@
+@import "tailwindcss";
+
+@theme {
+  /* Bảng màu theo Pixieset */
+  --color-ivory: #fafafa;
+  --color-soft-white: #ffffff;
+  --color-charcoal: #191918;
+  --color-warm-gray: #5c5c5c;
+  --color-sand: #dcefea;
+  --color-deep-brown: #008e74;
+  --color-emerald: #1abc9c;
+  --color-emerald-dark: #008e74;
+  --color-emerald-tint: #eef8f5;
+  --color-grey-60: #f0f0f0;
+  --color-card-teal: #319f80;
+  --color-card-gold: #dd9e40;
+  --color-card-purple: #695abf;
+  --color-card-blue: #589ec6;
+
+  --font-serif: 'Cormorant Garamond', Georgia, serif;
+  --font-display: 'Montserrat', 'Inter', system-ui, sans-serif;
+  --font-brush: 'Kaushan Script', 'Brush Script MT', cursive;
+  --font-slab: 'Alfa Slab One', Georgia, serif;
+  --font-sans: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 4.5rem;
+    overflow-x: clip;
+  }
+
+  body {
+    margin: 0;
+    background-color: #ffffff;
+    color: var(--color-charcoal);
+    font-family: var(--font-sans);
+    overflow-x: clip;
+  }
+
+  h1, h2, h3 {
+    font-family: var(--font-sans);
+    font-weight: 700;
+    letter-spacing: -0.025em;
+    text-wrap: balance;
+  }
+
+  p { text-wrap: pretty; }
+
+  :focus-visible {
+    outline: 2px solid var(--color-deep-brown);
+    outline-offset: 3px;
+  }
+
+  ::selection {
+    background: var(--color-sand);
+    color: var(--color-charcoal);
+  }
+}
+
+/* Nút kiểu Pixieset: dạng viên thuốc, chữ đậm vừa, không đổ bóng */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.8rem 1.6rem;
+  font-size: 0.92rem;
+  font-weight: 600;
+  letter-spacing: 0;
+  border: 1px solid transparent;
+  border-radius: 9999px;
+  transition: background-color 0.25s, color 0.25s, border-color 0.25s;
+  cursor: pointer;
+}
+.btn-solid { background: var(--color-emerald); color: #fff; }
+.btn-solid:hover { background: var(--color-emerald-dark); }
+.btn-light { border-color: rgba(255, 255, 255, 0.8); color: #fff; }
+.btn-light:hover { background: #fff; color: var(--color-charcoal); }
+.btn-white { background: #fff; color: var(--color-charcoal); }
+.btn-white:hover { background: var(--color-emerald-tint); }
+
+.eyebrow {
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--color-emerald);
+}
+
+/* Tiêu đề hero: dòng nhỏ màu vàng cam + dòng lớn chữ trắng đậm có vệt sờn như mẫu "Phố Cổ Hội An" */
+.title-brush {
+  font-family: var(--font-display);
+  font-weight: 800;
+  letter-spacing: 0.01em;
+  color: #f2a31b;
+  text-shadow: 0 2px 14px rgba(0, 0, 0, 0.35);
+}
+.title-slab {
+  font-family: var(--font-display);
+  font-weight: 900;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: #fff;
+  /* chừa chỗ cho dấu thanh chồng của chữ hoa tiếng Việt, tránh bị mask cắt */
+  padding: 0.35em 0.1em 0.1em;
+  margin-bottom: -0.1em;
+  /* các đốm nhỏ "đục" qua chữ để tạo hiệu ứng sờn */
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='320' height='320'%3E%3Cfilter id='f' x='0' y='0' width='100%25' height='100%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.32' numOctaves='2' seed='7'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 -14 0 0 0 10.6'/%3E%3C/filter%3E%3Crect width='320' height='320' filter='url(%23f)'/%3E%3C/svg%3E");
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='320' height='320'%3E%3Cfilter id='f' x='0' y='0' width='100%25' height='100%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.32' numOctaves='2' seed='7'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 -14 0 0 0 10.6'/%3E%3C/filter%3E%3Crect width='320' height='320' filter='url(%23f)'/%3E%3C/svg%3E");
+  -webkit-mask-size: 320px 320px;
+  mask-size: 320px 320px;
+}
+
+/* Biến thể chữ vàng của title-slab */
+.title-gold { color: #f2a31b; }
+
+/* Hiệu ứng nhập từng chữ cho tiêu đề hero */
+@keyframes wordIn {
+  from { opacity: 0; transform: translateY(0.45em); filter: blur(6px); }
+  to { opacity: 1; transform: none; filter: blur(0); }
+}
+.word-in {
+  display: inline-block;
+  opacity: 0;
+  animation: wordIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: none; }
+}
+.hero-actions { animation: fadeUp 0.8s ease 1.9s both; }
+
+/* Hero fade-in nhẹ */
+@keyframes heroFade {
+  from { opacity: 0; transform: scale(1.03); }
+  to { opacity: 1; transform: scale(1); }
+}
+.hero-img { animation: heroFade 1.6s cubic-bezier(0.16, 1, 0.3, 1) both; }
+
+@keyframes lbFade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+.lb-fade { animation: lbFade 0.3s ease both; }
+
+/* Form */
+.field {
+  width: 100%;
+  border: 1px solid #d6d6d6;
+  background: #fff;
+  padding: 0.8rem 1rem;
+  margin-top: 0.5rem;
+  font-size: 1rem;
+  color: var(--color-charcoal);
+  border-radius: 0.75rem;
+}
+.field:focus { outline: none; border-color: var(--color-charcoal); box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.45); }
+.field[aria-invalid="true"] { border-color: #9a3b2e; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    animation-delay: 0ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+
+/* Đèn trời riêng lẻ bay lên dần, lắc nhẹ, mờ vào rồi mờ ra */
+@keyframes skyRise {
+  0% { top: 105%; opacity: 0; transform: translateX(0) rotate(-3deg); }
+  12% { opacity: 0.95; }
+  50% { transform: translateX(var(--sway, 12px)) rotate(3deg); }
+  85% { opacity: 0.9; }
+  100% { top: -22%; opacity: 0; transform: translateX(0) rotate(-3deg); }
+}
+.sky-lantern {
+  top: 105%;
+  opacity: 0;
+  filter: drop-shadow(0 0 14px rgba(255, 150, 40, 0.55));
+  animation: skyRise linear infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .sky-lanterns { display: none; }
+}
